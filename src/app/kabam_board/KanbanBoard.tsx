@@ -113,10 +113,10 @@ function KanbanBoard() {
     </div>
   );
 
-  function createTask(columnId: Id) {
+  function createTask(status: Id) {
     const newTask: Task = {
       id: generateId(),
-      columnId,
+      status,
       content: `Task ${tasks.length + 1}`,
     };
     setTasks([...tasks, newTask]);
@@ -140,7 +140,7 @@ function KanbanBoard() {
     const filteredColumns = columns.filter((col) => col.id !== id);
     setColumns(filteredColumns);
 
-    const newTasks = tasks.filter((t) => t.columnId !== id);
+    const newTasks = tasks.filter((t) => t.status !== id);
     setTasks(newTasks);
   }
 
@@ -178,19 +178,17 @@ function KanbanBoard() {
     const { active, over } = event;
     if (!over) return;
 
-    const activeColumnId = active.id;
-    const overColumnId = over.id;
+    const activestatus = active.id;
+    const overstatus = over.id;
 
-    if (activeColumnId === overColumnId) return;
+    if (activestatus === overstatus) return;
 
     setColumns((columns) => {
       const activeColumnIndex = columns.findIndex(
-        (col) => col.id === activeColumnId
+        (col) => col.id === activestatus
       );
 
-      const overColumnIndex = columns.findIndex(
-        (col) => col.id === overColumnId
-      );
+      const overColumnIndex = columns.findIndex((col) => col.id === overstatus);
 
       return arrayMove(columns, activeColumnIndex, overColumnIndex);
     });
@@ -215,7 +213,7 @@ function KanbanBoard() {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t._id === activeId);
         const overIndex = tasks.findIndex((t) => t._id === over.id);
-        tasks[activeIndex].columnId = tasks[overIndex].columnId;
+        tasks[activeIndex].status = tasks[overIndex].status;
         return arrayMove(tasks, activeIndex, overIndex);
       });
     }
@@ -226,7 +224,7 @@ function KanbanBoard() {
     if (isActiveATask && isOverAColumn) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t._id === activeId);
-        tasks[activeIndex].columnId = overId;
+        tasks[activeIndex].status = overId;
 
         return arrayMove(tasks, activeIndex, activeIndex);
       });
