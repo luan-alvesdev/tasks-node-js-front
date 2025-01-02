@@ -11,6 +11,7 @@ import Todo from "../app/Todo";
 import Doing from "../app/Doing";
 import Done from "../app/Done";
 import Form from "../app/Form";
+import KanbanBoard from "@/app/kabam_board/KanbanBoard";
 
 function Card() {
   const [tarefas, setTarefas] = useState([]);
@@ -54,38 +55,7 @@ function Card() {
     : [];
 
   return (
-    <div>
-      <Form onAdd={handleAdd} />
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="border p-2">
-          <h2 className="text-2xl font-bold mb-4 text-center">TODO</h2>
-          <Todo
-            tarefas={tarefasTodo}
-            setTarefas={setTarefas}
-            onDelete={handleDelete}
-            onSave={handleSave}
-          />
-        </div>
-        <div className="border p-2">
-          <h2 className="text-2xl font-bold mb-4 text-center">DOING</h2>
-          <Doing
-            tarefas={tarefasDoing}
-            setTarefas={setTarefas}
-            onDelete={handleDelete}
-            onSave={handleSave}
-          />
-        </div>
-        <div className="border p-2">
-          <h2 className="text-2xl font-bold mb-4 text-center">DONE</h2>
-          <Done
-            tarefas={tarefasDone}
-            setTarefas={setTarefas}
-            onDelete={handleDelete}
-            onSave={handleSave}
-          />
-        </div>
-      </div>
-    </div>
+    <KanbanBoard />
   );
 }
 
