@@ -10,6 +10,6 @@ const api = axios.create({
 export const listarTarefas = () => api.get("/listar");
 export const cadastrarTarefa = (tarefa) => api.post("/cadastrar", tarefa);
 export const editarStatusTarefa = (id, status) =>
-  api.put(`/editar/status/${id}`, { status });
+  api.patch(`/editar/status/${id}`, { status });
 export const editarTarefa = (id, updates) => api.put(`/editar/${id}`, updates);
 export const deletarTarefa = (id) => api.delete(`/deletar/${id}`);

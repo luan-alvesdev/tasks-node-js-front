@@ -16,7 +16,11 @@ import {
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import TaskCard from "./TaskCard";
-import { listarTarefas } from "../../services/api";
+import {
+  deletarTarefa,
+  editarStatusTarefa,
+  listarTarefas,
+} from "../../services/api";
 
 function KanbanBoard() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -122,8 +126,10 @@ function KanbanBoard() {
     setTasks([...tasks, newTask]);
   }
 
-  function deleteTask(id: Id) {
-    const newTasks = tasks.filter((task) => task.id !== id);
+  async function deleteTask(id: Id) {
+    const newTasks = tasks.filter((task) => task._id !== id);
+    console.log(id);
+    const resp = await deletarTarefa(id);
     setTasks(newTasks);
   }
 
@@ -171,7 +177,7 @@ function KanbanBoard() {
     }
   }
 
-  function onDragEnd(event: DragEndEvent) {
+  async function onDragEnd(event: DragEndEvent) {
     setActiveColumn(null);
     setActiveTask(null);
 
@@ -182,6 +188,10 @@ function KanbanBoard() {
     const overstatus = over.id;
 
     if (activestatus === overstatus) return;
+    const resp = await editarStatusTarefa(
+      active.id,
+      over.data.current.task.status
+    );
 
     setColumns((columns) => {
       const activeColumnIndex = columns.findIndex(
