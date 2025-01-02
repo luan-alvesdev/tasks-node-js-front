@@ -22,7 +22,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
     transition,
     isDragging,
   } = useSortable({
-    id: task.id,
+    id: task._id,
     data: {
       type: "Task",
       task,
@@ -101,7 +101,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
       }}
     >
       <p className="my-auto h-[90%] w-full overflow-auto overflow-x-hidden whitespace-pre-wrap">
-        {task.content}
+        {task.descricao}
       </p>
       {mouseIsOver && (
         <button

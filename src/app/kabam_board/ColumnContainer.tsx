@@ -31,7 +31,7 @@ function ColumnContainer(props: Props) {
   const [editMode, setEditMode] = useState(false);
 
   const taskIds = useMemo(() => {
-    return tasks.map((task) => task.id);
+    return tasks.map((task) => task.status);
   }, [tasks]);
 
   const {
@@ -166,7 +166,7 @@ function ColumnContainer(props: Props) {
         <SortableContext items={taskIds}>
           {tasks.map((task) => (
             <TaskCard
-              key={task.id}
+              key={task._id}
               task={task}
               deleteTask={deleteTask}
               updateTask={updateTask}

@@ -19,26 +19,24 @@ import TaskCard from "./TaskCard";
 import { listarTarefas } from "../../services/api";
 
 function KanbanBoard() {
-  const [listaDeTarefas, setListaDeTarefas] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       // uso de função async para chamar função apenas uma vez, sem função async estava chamando duas vezes
       const resp = await listarTarefas();
-      setListaDeTarefas(resp.data);
+      setTasks(resp.data);
     };
 
     fetchData();
   }, []);
 
   const [columns, setColumns] = useState<Column[]>([
-    { id: 1, title: "TODO" },
-    { id: 2, title: "DOING" },
-    { id: 3, title: "DONE" },
+    { id: "TODO", title: "TODO" },
+    { id: "DOING", title: "DOING" },
+    { id: "DONE", title: "DONE" },
   ]);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-
-  const [tasks, setTasks] = useState<Task[]>([]);
 
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
@@ -82,7 +80,7 @@ function KanbanBoard() {
                   createTask={createTask}
                   deleteTask={deleteTask}
                   updateTask={updateTask}
-                  tasks={tasks.filter((task) => task.columnId === col.id)}
+                  tasks={tasks.filter((task) => task.status === col.id)}
                 />
               ))}
             </SortableContext>
@@ -98,9 +96,7 @@ function KanbanBoard() {
                 createTask={createTask}
                 deleteTask={deleteTask}
                 updateTask={updateTask}
-                tasks={tasks.filter(
-                  (task) => task.columnId === activeColumn.id
-                )}
+                tasks={tasks.filter((task) => task.status === activeColumn.id)}
               />
             )}
             {activeTask && (
@@ -217,11 +213,9 @@ function KanbanBoard() {
     //Im dropping a Task over another Task
     if (isActiveATask && isOverATask) {
       setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeId);
-        const overIndex = tasks.findIndex((t) => t.id === over.id);
-
+        const activeIndex = tasks.findIndex((t) => t._id === activeId);
+        const overIndex = tasks.findIndex((t) => t._id === over.id);
         tasks[activeIndex].columnId = tasks[overIndex].columnId;
-
         return arrayMove(tasks, activeIndex, overIndex);
       });
     }
@@ -231,8 +225,7 @@ function KanbanBoard() {
     //Iam dreopping a Task over a column
     if (isActiveATask && isOverAColumn) {
       setTasks((tasks) => {
-        const activeIndex = tasks.findIndex((t) => t.id === activeId);
-
+        const activeIndex = tasks.findIndex((t) => t._id === activeId);
         tasks[activeIndex].columnId = overId;
 
         return arrayMove(tasks, activeIndex, activeIndex);
