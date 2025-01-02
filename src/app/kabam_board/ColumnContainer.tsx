@@ -126,7 +126,7 @@ function ColumnContainer(props: Props) {
         rounded-full
         "
           >
-            0
+            {tasks.length}
           </div>
           {!editMode && column.title}
           {editMode && (
@@ -145,21 +145,6 @@ function ColumnContainer(props: Props) {
             />
           )}
         </div>
-        <button
-          onClick={() => {
-            deleteColumn(column.id);
-          }}
-          className="
-        stroke-gray-500
-        hover: stroke-white
-        hover:bg-columnBackgroundColor
-        rounded
-        px-1
-        py-2
-        "
-        >
-          <TrashIcon />
-        </button>
       </div>
 
       <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">

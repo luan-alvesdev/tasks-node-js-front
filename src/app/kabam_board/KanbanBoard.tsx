@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import PlusIcon from "./icons/PlusIcon";
 import { Column, Id, Task } from "./types";
 import ColumnContainer from "./ColumnContainer";
+import Modal from "../../components/Modal";
 import {
   DndContext,
   DragOverlay,
@@ -66,6 +67,7 @@ function KanbanBoard() {
     overflow-y-hidden
     px-[40px]"
     >
+      <Modal />
       <DndContext
         sensors={sensors}
         onDragStart={onDragStart}
@@ -187,11 +189,10 @@ function KanbanBoard() {
     const activestatus = active.id;
     const overstatus = over.id;
 
+    await editarStatusTarefa(active.id, over.data.current.task.status);
+
     if (activestatus === overstatus) return;
-    const resp = await editarStatusTarefa(
-      active.id,
-      over.data.current.task.status
-    );
+    console.log(active.id);
 
     setColumns((columns) => {
       const activeColumnIndex = columns.findIndex(
@@ -215,7 +216,6 @@ function KanbanBoard() {
 
     const isActiveATask = active.data.current?.type === "Task";
     const isOverATask = over.data.current?.type === "Task";
-
     if (!isActiveATask) return;
 
     //Im dropping a Task over another Task
