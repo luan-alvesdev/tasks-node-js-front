@@ -35,42 +35,47 @@ function Todo({ tarefas, onDelete, onSave, setTarefas }) {
   return (
     <div>
       {tarefas.map((tarefa) => (
-        <div key={tarefa._id} className="mb-4">
+        <div key={tarefa._id} className="mb-4 border rounded p-2 flex-nowrap">
           {editId === tarefa._id ? (
-            <div>
+            <div className="flex-nowrap">
               <input
                 type="text"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
-                className="mb-2"
+                className="m-2"
               />
-              <textarea
+              <input
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
-                className="mb-2"
+                className="m-2"
               />
-              <button onClick={() => handleSave(tarefa._id)}>Save</button>
+              <button
+                className="p-2 bg-blue-500 text-white rounded"
+                onClick={() => handleSave(tarefa._id)}
+              >
+                Save
+              </button>
             </div>
           ) : (
             <div>
-              <h1 className="text-4xl font-bold text-blue-500 underline mb-2">
-                {tarefa.titulo}
+              <div className="flex items-center justify-between gap-4">
+                <h1 className="text-4xl text-blue-500 mb-2 font-semibold">
+                  {tarefa.titulo}
+                </h1>
                 <FaEdit
                   onClick={() => handleEdit(tarefa)}
                   className="ml-2 cursor-pointer"
                 />
-              </h1>
-              <p>
+              </div>
+              <div className="flex items-center justify-between">
                 {tarefa.descricao}
-                <FaEdit
-                  onClick={() => handleEdit(tarefa)}
-                  className="ml-2 cursor-pointer"
-                />
-                <FaTrashAlt
-                  onClick={() => onDelete(tarefa._id)}
-                  className="ml-2 cursor-pointer"
-                />
-              </p>
+                <span className="flex items-center">
+                  <FaTrashAlt
+                    onClick={() => onDelete(tarefa._id)}
+                    className="ml-2 cursor-pointer"
+                  />
+                </span>
+              </div>
             </div>
           )}
         </div>

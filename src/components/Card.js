@@ -57,8 +57,8 @@ function Card() {
     <div>
       <Form onAdd={handleAdd} />
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div>
-          <h2 className="text-2xl font-bold mb-4">TODO</h2>
+        <div className="border p-2">
+          <h2 className="text-2xl font-bold mb-4 text-center">TODO</h2>
           <Todo
             tarefas={tarefasTodo}
             setTarefas={setTarefas}
@@ -66,8 +66,8 @@ function Card() {
             onSave={handleSave}
           />
         </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-4">DOING</h2>
+        <div className="border p-2">
+          <h2 className="text-2xl font-bold mb-4 text-center">DOING</h2>
           <Doing
             tarefas={tarefasDoing}
             setTarefas={setTarefas}
@@ -75,8 +75,8 @@ function Card() {
             onSave={handleSave}
           />
         </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-4">DONE</h2>
+        <div className="border p-2">
+          <h2 className="text-2xl font-bold mb-4 text-center">DONE</h2>
           <Done
             tarefas={tarefasDone}
             setTarefas={setTarefas}
