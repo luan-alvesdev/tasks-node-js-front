@@ -1,9 +1,7 @@
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
-import { TrashIcon } from "./icons/TrashIcon";
 import { Column, Id, Task } from "./types";
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState } from "react";
-import PlusIcon from "./icons/PlusIcon";
 import TaskCard from "./TaskCard";
 
 interface Props {
@@ -110,6 +108,7 @@ function ColumnContainer(props: Props) {
         border-4
         flex
         items-center
+        mb-2
         justify-between
         "
       >
@@ -159,14 +158,6 @@ function ColumnContainer(props: Props) {
           ))}
         </SortableContext>
       </div>
-      <button
-        className="flex gap-2 items-center border-columnBackgroundColor border-2 rounded-md p-4
-            border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black"
-        onClick={() => createTask(column.id)}
-      >
-        <PlusIcon />
-        Add Task
-      </button>
     </div>
   );
 }

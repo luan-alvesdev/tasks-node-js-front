@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import PlusIcon from "./icons/PlusIcon";
 import { Column, Id, Task } from "./types";
 import ColumnContainer from "./ColumnContainer";
 import Modal from "../../components/Modal";

@@ -7,12 +7,11 @@ export type Column = {
 
 export type Task = {
   id: string | number;
-  status: Id;
   content: string;
   _id?: string | number;
   titulo?: string;
   descricao?: string;
-  status?: string;
+  status?: Id;
   createdAt?: Date;
   updatedAt?: Date;
 };
